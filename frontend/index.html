@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -20,14 +21,29 @@
   </style>
 </head>
 <body class="bg-gray-100 text-gray-900 font-sans p-8">
-  <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
+  <div class="max-w-6xl mx-auto bg-white shadow-md rounded-lg p-6">
     <h1 class="text-2xl font-bold mb-4">🧠 Political Bias Checker</h1>
     <p class="mb-4">Paste your article or opinion piece below:</p>
     <textarea id="inputText" class="w-full h-48 p-4 border rounded mb-4" placeholder="Paste article text here..."></textarea>
-    <button id="analyzeBtn" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">Analyze</button>
-    <pre id="resultBox" class="mt-4 bg-gray-50 p-4 rounded whitespace-pre-wrap"></pre>
-    <h2 class="mt-6 font-bold text-lg">🔍 Highlighted Text:</h2>
-    <div id="annotatedOutput" class="bg-white border rounded p-4 mt-2"></div>
+    <div class="flex flex-col md:flex-row md:space-x-4 space-y-2 md:space-y-0 mb-4">
+      <button id="analyzeBtn" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">Analyze Bias</button>
+      <button id="gptBtn" class="bg-purple-600 text-white px-4 py-2 rounded w-full hover:bg-purple-700 transition">Get GPT Summary on Analysis</button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div>
+        <h2 class="font-bold text-lg mb-2">📊 Bias Analysis Result</h2>
+        <pre id="resultBox" class="bg-gray-50 p-4 rounded whitespace-pre-wrap"></pre>
+
+        <h2 class="mt-6 font-bold text-lg">🔍 Highlighted Text</h2>
+        <div id="annotatedOutput" class="bg-white border rounded p-4 mt-2"></div>
+      </div>
+
+      <div>
+        <h2 class="font-bold text-lg mb-2">🧠 GPT Summary</h2>
+        <div id="gptSummary" class="bg-gray-50 border rounded p-4 text-sm italic text-gray-700"></div>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -57,10 +73,41 @@
         const confidence = result.confidence || 'Unknown';
         const reasoning = result.reasoning || '⚠️ No reasoning returned';
 
-        resultBox.textContent = `🧠 Overall Bias: ${label} (${score})\n📊 Confidence: ${confidence}\n\n${reasoning}`;
+        resultBox.innerHTML = `
+          <strong>🧠 Overall Bias:</strong> ${label} (${score})<br>
+          <strong>📊 Confidence:</strong> ${confidence}<br><br>
+          <pre class="whitespace-pre-wrap">${reasoning}</pre>
+        `;
+
         annotatedBox.innerHTML = result.annotatedText;
       } catch (error) {
         resultBox.textContent = '❌ Error contacting the backend.';
+        console.error(error);
+      }
+    }
+
+    async function getGPTSummary() {
+      const input = document.getElementById('inputText').value;
+      const gptBox = document.getElementById('gptSummary');
+      gptBox.textContent = 'Thinking...';
+
+      try {
+        const response = await fetch('http://localhost:3001/api/gpt-summary', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: input })
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+          gptBox.textContent = `❌ Error: ${result.detail || result.error}`;
+        } else {
+          gptBox.textContent = result.summary;
+        }
+      } catch (error) {
+        gptBox.textContent = '❌ Failed to reach GPT service.';
+        console.error(error);
       }
     }
 
@@ -68,6 +115,11 @@
       const analyzeBtn = document.getElementById('analyzeBtn');
       if (analyzeBtn) {
         analyzeBtn.addEventListener('click', analyzeText);
+      }
+
+      const gptBtn = document.getElementById('gptBtn');
+      if (gptBtn) {
+        gptBtn.addEventListener('click', getGPTSummary);
       }
     });
   </script>
