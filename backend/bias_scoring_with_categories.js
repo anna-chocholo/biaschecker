@@ -70,7 +70,6 @@ function scoreBiasByCategory(text, dict) {
     };
   }
 
-  // Annotate text with matched terms
   let annotatedText = text;
   const allMatches = [];
   for (const category in matches) {
@@ -116,13 +115,13 @@ function explainResults(results) {
     }
   }
 
+  const header = `🧠 Overall Bias: ${results.totalScore.label} (${results.totalScore.score})\n📊 Confidence: ${results.confidence}\n📘 Methodology: Weighted average of category scores based on matched terms and their intensities.\n\n🧮 Calculation Summary:\n- ${results.totalHits} total biased term hits\n- Right-leaning terms: ${results.rightHits}\n- Left-leaning terms: ${results.leftHits}`;
+
   const disclaimer = results.totalHits < 5
-    ? '⚠️ Disclaimer: Fewer than 5 biased terms were found. This evaluation may not be reliable. Try analyzing a longer or more opinionated text.\n\n'
+    ? '\n\n⚠️ Disclaimer: Fewer than 5 biased terms were found. This evaluation may not be reliable. Try analyzing a longer or more opinionated text.'
     : '';
 
-  const header = `${disclaimer}🧠 Overall Bias: ${results.totalScore.label} (${results.totalScore.score})\n📊 Confidence: ${results.confidence}\n📘 Methodology: Weighted average of category scores based on matched terms and their intensities.\n\n🧮 Calculation Summary:\n- ${results.totalHits} total biased term hits\n- Right-leaning terms: ${results.rightHits}\n- Left-leaning terms: ${results.leftHits}`;
-
-  return `${header}\n\n🔍 Category Breakdown:\n\n${summary.join('\n\n')}`;
+  return `${header}${disclaimer}\n\n🔍 Category Breakdown:\n\n${summary.join('\n\n')}`;
 }
 
 module.exports = {
