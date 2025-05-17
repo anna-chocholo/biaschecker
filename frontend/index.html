@@ -1,18 +1,75 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Bias Checker</title>
-  <script defer src="app.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .bias-left {
+      background-color: #d1e7dd;
+      color: #0f5132;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+    .bias-right {
+      background-color: #f8d7da;
+      color: #842029;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 min-h-screen flex items-center justify-center p-8">
-  <div class="max-w-xl w-full bg-white rounded-xl shadow p-6">
-    <h1 class="text-2xl font-bold mb-4 text-center">Political Bias Checker</h1>
-    <input id="urlInput" type="text" placeholder="Enter article URL" class="w-full border p-2 rounded mb-4" />
-    <button id="analyzeBtn" class="bg-blue-600 text-white px-4 py-2 rounded w-full">Analyze</button>
-    <pre id="resultBox" class="mt-6 whitespace-pre-wrap bg-gray-100 p-4 rounded text-sm overflow-x-auto"></pre>
+<body class="bg-gray-100 text-gray-900 font-sans p-8">
+  <div class="max-w-2xl mx-auto bg-white shadow-md rounded-lg p-6">
+    <h1 class="text-2xl font-bold mb-4">🧠 Political Bias Checker</h1>
+    <p class="mb-4">Paste your article or opinion piece below:</p>
+    <textarea id="inputText" class="w-full h-48 p-4 border rounded mb-4" placeholder="Paste article text here..."></textarea>
+    <button id="analyzeBtn" class="bg-blue-600 text-white px-4 py-2 rounded w-full hover:bg-blue-700 transition">Analyze</button>
+    <pre id="resultBox" class="mt-4 bg-gray-50 p-4 rounded whitespace-pre-wrap"></pre>
+    <h2 class="mt-6 font-bold text-lg">🔍 Highlighted Text:</h2>
+    <div id="annotatedOutput" class="bg-white border rounded p-4 mt-2"></div>
   </div>
+
+  <script>
+    async function analyzeText() {
+      const input = document.getElementById('inputText').value;
+      const resultBox = document.getElementById('resultBox');
+      const annotatedBox = document.getElementById('annotatedOutput');
+      resultBox.textContent = 'Analyzing...';
+      annotatedBox.innerHTML = '';
+
+      try {
+        const response = await fetch('http://localhost:3001/api/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text: input })
+        });
+
+        const result = await response.json();
+
+        if (result.error) {
+          resultBox.textContent = `❌ Error: ${result.detail || result.error}`;
+          return;
+        }
+
+        const label = result.totalScore?.label || 'N/A';
+        const score = result.totalScore?.score ?? 'N/A';
+        const confidence = result.confidence || 'Unknown';
+        const reasoning = result.reasoning || '⚠️ No reasoning returned';
+
+        resultBox.textContent = `🧠 Overall Bias: ${label} (${score})\n📊 Confidence: ${confidence}\n\n${reasoning}`;
+        annotatedBox.innerHTML = result.annotatedText;
+      } catch (error) {
+        resultBox.textContent = '❌ Error contacting the backend.';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const analyzeBtn = document.getElementById('analyzeBtn');
+      if (analyzeBtn) {
+        analyzeBtn.addEventListener('click', analyzeText);
+      }
+    });
+  </script>
 </body>
 </html>
