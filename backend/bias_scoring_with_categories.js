@@ -9,6 +9,7 @@ function classifyScore(score) {
 }
 
 function classifyConfidence(total) {
+  if (total < 5) return 'Very low';
   if (total < 10) return 'Low';
   if (total < 20) return 'Medium';
   return 'High';
@@ -78,9 +79,7 @@ function scoreBiasByCategory(text, dict) {
     }
   }
 
-  // Sort to handle longer phrases first
   allMatches.sort((a, b) => b.term.length - a.term.length);
-
   const used = new Set();
   for (const { term, polarity } of allMatches) {
     if (used.has(term.toLowerCase())) continue;
@@ -119,7 +118,11 @@ function explainResults(results) {
 
   const header = `🧠 Overall Bias: ${results.totalScore.label} (${results.totalScore.score})\n📊 Confidence: ${results.confidence}\n📘 Methodology: Weighted average of category scores based on matched terms and their intensities.\n\n🧮 Calculation Summary:\n- ${results.totalHits} total biased term hits\n- Right-leaning terms: ${results.rightHits}\n- Left-leaning terms: ${results.leftHits}`;
 
-  return `${header}\n\n🔍 Category Breakdown:\n\n${summary.join('\n\n')}`;
+  const disclaimer = results.totalHits < 5
+    ? '\n\n⚠️ Disclaimer: Fewer than 5 biased terms were found. This evaluation may not be reliable. Try analyzing a longer or more opinionated text.'
+    : '';
+
+  return `${header}${disclaimer}\n\n🔍 Category Breakdown:\n\n${summary.join('\n\n')}`;
 }
 
 module.exports = {
