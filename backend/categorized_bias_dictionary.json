@@ -1,0 +1,296 @@
+{
+  "culture": [
+    {
+      "term": "woke",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "cancel culture",
+      "polarity": "right",
+      "intensity": 4
+    },
+    {
+      "term": "left-wing mob",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "family values",
+      "polarity": "right",
+      "intensity": 2
+    },
+    {
+      "term": "war on christmas",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "mainstream media",
+      "polarity": "right",
+      "intensity": 4
+    },
+    {
+      "term": "rino",
+      "polarity": "right",
+      "intensity": 4
+    }
+  ],
+  "economy": [
+    {
+      "term": "socialist agenda",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "pro-life",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "billionaire class",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "tax the rich",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "income inequality",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "living wage",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "corporate greed",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "pro-choice",
+      "polarity": "left",
+      "intensity": 3
+    }
+  ],
+  "immigration": [
+    {
+      "term": "border crisis",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "open borders",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "illegal alien",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "abolish ice",
+      "polarity": "left",
+      "intensity": 4
+    }
+  ],
+  "governance": [
+    {
+      "term": "deep state",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "fake news",
+      "polarity": "right",
+      "intensity": 4
+    },
+    {
+      "term": "election integrity",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "election fraud",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "voter suppression",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "democracy",
+      "polarity": "left",
+      "intensity": 1
+    },
+    {
+      "term": "american values",
+      "polarity": "right",
+      "intensity": 1
+    }
+  ],
+  "environment": [
+    {
+      "term": "climate denier",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "green new deal",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "defund fossil fuels",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "climate crisis",
+      "polarity": "left",
+      "intensity": 4
+    }
+  ],
+  "identity": [
+    {
+      "term": "social justice",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "equity",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "systemic racism",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "white supremacy",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "gender-affirming care",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "trans rights",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "civil rights",
+      "polarity": "left",
+      "intensity": 1
+    }
+  ],
+  "general": [
+    {
+      "term": "patriot",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "radical left",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "liberal elites",
+      "polarity": "right",
+      "intensity": 4
+    },
+    {
+      "term": "globalist",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "defund the police",
+      "polarity": "right",
+      "intensity": 5
+    },
+    {
+      "term": "real americans",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "law and order",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "anti-american",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "gun rights",
+      "polarity": "right",
+      "intensity": 3
+    },
+    {
+      "term": "second amendment",
+      "polarity": "right",
+      "intensity": 2
+    },
+    {
+      "term": "progressive",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "far-right",
+      "polarity": "left",
+      "intensity": 5
+    },
+    {
+      "term": "gun violence",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "universal healthcare",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "reproductive rights",
+      "polarity": "left",
+      "intensity": 3
+    },
+    {
+      "term": "abolish prisons",
+      "polarity": "left",
+      "intensity": 4
+    },
+    {
+      "term": "freedom",
+      "polarity": "right",
+      "intensity": 1
+    },
+    {
+      "term": "public safety",
+      "polarity": "left",
+      "intensity": 1
+    },
+    {
+      "term": "national security",
+      "polarity": "right",
+      "intensity": 1
+    }
+  ]
+}
